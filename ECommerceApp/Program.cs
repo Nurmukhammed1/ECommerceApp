@@ -1,4 +1,5 @@
 using ECommerceApp.Models.Data;
+using ECommerceApp.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +23,8 @@ builder.Services.AddCors(options =>
                 .AllowAnyHeader();
         });
 });
+
+builder.Services.AddScoped<CustomerService>();
 
 var app = builder.Build();
 
