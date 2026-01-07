@@ -52,42 +52,13 @@ public class CustomerService
         {
             // Some future logging
 
-            return new ApiResponse<CustomerResponseDTO>(500, $"An unexpected error occured while processing your request, Error: {ex.Message}");
+            return new ApiResponse<CustomerResponseDTO>(500, $"An unexpected error occured while processing your request.");
         }
     }
 
     public async Task<ApiResponse<LoginResponseDTO>> LoginAsync(LoginDTO loginDto)
     {
-        try
-        {
-            var customer = await _context.Customers
-                .AsNoTracking()
-                .FirstOrDefaultAsync(c => c.Email == loginDto.Email);
-
-            if (customer == null) 
-                return new ApiResponse<LoginResponseDTO>(401, "Invalid Email or Password.");
-
-            bool isPasswordValid = BCrypt.Net.BCrypt.Verify(loginDto.Password, customer.Password);
-
-            if (!isPasswordValid) 
-                return new ApiResponse<LoginResponseDTO>(401, "Invalid Email or Password.");
-
-            
-            var loginResponse = new LoginResponseDTO
-            {
-                CustomerId = customer.Id,
-                Message = "Login successful.",
-                CustomerName = $"{customer.FirstName} {customer.LastName}"
-            };
-
-            return new ApiResponse<LoginResponseDTO>(200, loginResponse);
-        }
-        catch (Exception ex)
-        {
-            // Log the exception
-
-            return new ApiResponse<LoginResponseDTO>(500, $"An unexpected error occurred while processing your request, Error: {ex.Message}");
-        }
+        return null;
     }
 
     public async Task<ApiResponse<CustomerResponseDTO>> GetCustomerByIdAsync(int id)
@@ -117,7 +88,7 @@ public class CustomerService
         {
             // logging
 
-            return new ApiResponse<CustomerResponseDTO>(500, $"An unexpected error occurred while processing your request, Error: {ex.Message}");
+            return new ApiResponse<CustomerResponseDTO>(500, $"An unexpected error occurred while processing your request.");
         }
     }
 
@@ -153,7 +124,7 @@ public class CustomerService
         {
             // logging
 
-            return new ApiResponse<ConfirmationResponseDTO>(500, $"An unexpected error occurred while processing your request, Error: {ex.Message}");
+            return new ApiResponse<ConfirmationResponseDTO>(500, $"An unexpected error occurred while processing your request.");
         }
     }
 
@@ -181,7 +152,7 @@ public class CustomerService
         {
             // logging
 
-            return new ApiResponse<ConfirmationResponseDTO>(500, $"An unexpected error occurred while processing your request, Error: {ex.Message}");
+            return new ApiResponse<ConfirmationResponseDTO>(500, $"An unexpected error occurred while processing your request.");
         }
     }
 
@@ -213,7 +184,7 @@ public class CustomerService
         {
             // Logging
 
-            return new ApiResponse<ConfirmationResponseDTO>(500, $"An unexpected error occurred while processing your request, Error: {ex.Message}");
+            return new ApiResponse<ConfirmationResponseDTO>(500, $"An unexpected error occurred while processing your request.");
         }
     }
 }
